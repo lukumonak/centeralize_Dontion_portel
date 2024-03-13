@@ -3,6 +3,9 @@ import Form from 'react-bootstrap/Form';
 import './login.css';
 import Navbr from '../Components/Navbr'
 import { useRef } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
+import { useNavigate } from 'react-router-dom';
+
 function Donate() {
 
   const inputRef1= useRef()
@@ -11,6 +14,10 @@ function Donate() {
   const inputRef4= useRef()
   const inputRef5= useRef()
 
+  const navigate=useNavigate()
+  
+  const user=useAuthContext()
+  
    const submitForm=async()=>{
     console.log("form submited")
    var name=inputRef1.current.value
@@ -22,12 +29,20 @@ function Donate() {
    const productData={name,type,weight,pincode,landmark}
    console.log(productData)
    
+   console.log(user)
+   
 
+   if(user.user===null){
+    alert('you need to logged in')
+   }
+   
+   
     const response=await fetch('http://localhost:4000/api/oldThs/',{
     method:'POST',
     headers:{
       'Accept':'Application/json',
-      'Content-Type':'Application/json'
+      'Content-Type':'Application/json',
+      'Authorization':`Bearer ${user.user.token}`
     },
     body:JSON.stringify(productData)
    })
@@ -35,16 +50,20 @@ function Donate() {
 
    if(response.ok){
     alert("submited")
+    navigate('/access')
    }
    if(!response.ok){
     alert.error("there is an problem");
    }
+
   }
+   
 
 
   return (<>
 
     <Navbr />
+    <div>{}</div>
     <div className=" login-body">
 
 
@@ -76,6 +95,7 @@ function Donate() {
 
         <Button className='btn1 mt-4' onClick={submitForm}>submit</Button>
       </Form>
+      <di>{user.token}</di>
     </div>
   </>
   );

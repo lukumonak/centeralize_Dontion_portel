@@ -5,51 +5,61 @@ import Button from 'react-bootstrap/Button';
 import Navbr from '../Components/Navbr.js'
 import { useAuthContext } from '../hooks/useAuthContext.js';
 
-function SpecialAccess() {
+function OrgAccess() {
+  const active = localStorage.getItem('active')
+  // console.log("active4", !!active) //true
 
-  const baseUrl = 'http://localhost:4000/api/oldThs/';
-  const{user}=useAuthContext()
+  const baseUrl = 'http://localhost:4000/api/oldThs/all';
+    const {user}=useAuthContext();
+
+   
+
+     const buttonClick=(id)=>{
+      console.log(id);
+     }
 
 
   const [pst, setPst] = useState(null);
 
   useEffect(() => {
 
-    
+    if(user && active==='true'){
 
-    if(user){
-      axios.get(baseUrl,{
-        headers:{'Authorization':`Bearer ${user.token}`}
-      }).then((response) => {
-        setPst(response.data)
-      });
-
+        axios.get(baseUrl,{
+            headers:{'Authorization':`Bearer ${user.token}`}
+        }).then((response) => {
+            setPst(response.data)
+        });
     }
-    
-    
-    
+
+
   }, [user])
 
   if (!pst) return null;
 
-  console.log(pst.name);
+  console.log(pst);
 
   const pduct = pst.map(({ name, type }) => {
     return name, type;
   })
+  console.log(pst);
+
+
+
+  
 
   return (
     <div>
       <Navbr />
-      <Table striped bordered hover>
+      <table className='table table-hover table-bordered' style={{ fontSize: '13px' }} >
         <thead>
           <tr>
-           
             <th> Name</th>
             <th>Product Type</th>
             <th>Waight (kg)</th>
             <th>Pincode</th>
             <th>Landmark</th>
+            <th >PickUp Request</th>
           </tr>
         </thead>
         <tbody>
@@ -57,22 +67,24 @@ function SpecialAccess() {
             pst.map((item, index) => (
 
               <>
-              {console.log(item)}
                 <tr>
                   <td>{item.name}</td>
                   <td>{item.type}</td>
                   <td>{item.weight}</td>
                   <td>{item.pincode}</td>
                   <td>{item.landmark}</td>
+                  <td >
+                    <button  className="py-0 btn btn-primary position-sticky float-right" onClick={()=>buttonClick(item._id)}>Req</button>
+                    </td>
                 </tr>
-
               </>
+
 
             ))
           }
         </tbody>
-      </Table>
+      </table>
     </div>
   );
 }
-export default SpecialAccess;
+export default OrgAccess;

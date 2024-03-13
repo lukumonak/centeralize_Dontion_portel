@@ -33,26 +33,28 @@
 }
 
 .container1{
-    max-width: 90%;
+    max-width: 97%;
     margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 85%;
+    width: 95%;
 
 }
 li{
     /* text-decoration: none; */
     list-style: none;
+    display: grid;
+    justify-content: center;
 }
 .nv-links li{
     color: white;
-    font-size: 15px;
+    font-size: 14px;
     padding: 0 7px;
     margin: 0 7px;
     cursor: pointer;
     position: relative;
-    left: 36px;
+    right: 98px;
 }
 
 .hero{
@@ -97,7 +99,7 @@ button{
         background-color: rgb(213, 28, 28);
         text-align: center;
         border-radius: 4px;
-        width: 80%;
+        width: 70%;
         text-decoration: none;
         font-size: 1rem;
         background-color: white;
@@ -129,9 +131,33 @@ button{
     --bs-navbar-padding-x: 0;
     --bs-navbar-padding-y:0;
     position: relative;
-    right:24px;
+    right:49px;
   }
  
   .navbar-dark, .navbar[data-bs-theme="dark"] {
     --bs-navbar-color: rgb(255, 255, 255);
+  }
+
+  .navbar-dark, .navbar[data-bs-theme="dark"] {
+    --bs-navbar-color: rgb(126, 26, 26);
+  }
+  
+ .dropdown{
+    position: relative;
+    left: 43px;
+ }
+ 
+ 
+ 
+
+  .profile-btn{
+    position: relative;
+    bottom: 35px;
+    
+  }
+
+  .navbar-nav {
+    display: block;
+    left: 19px;
+    position: relative;
   }
