@@ -5,6 +5,7 @@ var cors= require('cors')
 
 const oldThRoutes= require('./routes/oldTh')
 const userRouter= require('./routes/user')
+const organizationRoutes= require('./routes/orgroute')
 const express= require('express')
 const app =express()
 
@@ -29,6 +30,7 @@ connectDB().then(()=>{
 
 app.use('/api/oldThs', oldThRoutes)
 app.use('/api/user', userRouter)
+app.use('/api/organization', organizationRoutes)
 
 // connectdb
 

@@ -5,9 +5,10 @@ uploadProduct=async(req,res)=>{
     const {name,type,weight,pincode,landmark}=req.body
     
     try{
-        const uploadProduct=await UploadProduct.create({name,type,weight,pincode,landmark})
+        const user_id=req.user._id
+        const uploadProduct=await UploadProduct.create({name,type,weight,pincode,landmark,user_id})
         res.status(200).json(uploadProduct)
-        console.log({name,type,weight,pincode,landmark})
+        console.log({name,type,weight,pincode,landmark,user_id})
     
     }
     catch(error){
@@ -17,8 +18,14 @@ uploadProduct=async(req,res)=>{
 }
 
 getAllProducts=async(req,res)=>{
-    const getAproducts=await UploadProduct.find({})
+    const user_id=req.user._id
+    const getAproducts=await UploadProduct.find({user_id})
     res.status(200).json(getAproducts)
+}
+
+getAlluserproduct=async(req,res)=>{
+    const Alluserproduct=await UploadProduct.find({})
+    res.status(200).json(Alluserproduct)
 }
 
 getSingleProduct=async(req,res)=>{
@@ -55,6 +62,7 @@ updateProduct=async(req,res)=>{
 const {id}=req.params
 
     try{
+        const user_id=req.user._id
         const updatepro=await UploadProduct.updateOne({_id:id},{$set:{name,type,weight,pincode,landmark}})
        return res.status(200).json(updatepro)
         console.log({pduct})
@@ -70,5 +78,6 @@ module.exports={
     getAllProducts,
     getSingleProduct,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    getAlluserproduct
 }

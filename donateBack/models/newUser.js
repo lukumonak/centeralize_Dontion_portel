@@ -15,6 +15,16 @@ const newUser= mongoose.Schema({
         type:String,
         require:true,
         unique:true
+    },
+
+    role:{
+        type: String,
+        default: 'user'
+      },
+
+    active:{
+        type: Boolean,
+        default:false
     }
 })
 
@@ -52,12 +62,13 @@ return newuser
 
 //login
 
-newUser.statics.login=async function(email, password){
+newUser.statics.login=async function(email, password, role, active){
 
 if(!email||!password){
     throw Error("both field must ")
 }
-
+console.log(role)
+console.log(active)
 const newuser= await this.findOne({email})
 
 
@@ -67,6 +78,8 @@ const newuser= await this.findOne({email})
         throw Error("invalid password")
     }
     return newuser
+    
 }
+
 
 module.exports=mongoose.model('userSchema',newUser)

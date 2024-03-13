@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const loginUser=require('../controller/userController')
 const pUpload = new mongoose.Schema({
   name: {
     type: String,
@@ -20,6 +20,10 @@ const pUpload = new mongoose.Schema({
    landmark: {
     type: String,
     require: true,
+  },
+  user_id:{
+    type:String,
+    require:true,
   }
 })
 

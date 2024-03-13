@@ -1,5 +1,6 @@
 const express= require ('express')
 const {loginUser,signUpUser}=require('../controller/userController')
+const { updateUser } = require('../controller/userController')
 
 
 
@@ -11,6 +12,10 @@ router.post('/login',loginUser)
 
 //signUp
 router.post('/signUp',signUpUser)
+
+
+router.patch('/permission/:id',updateUser) //permission
+
 
 
 
